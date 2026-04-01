@@ -46,3 +46,23 @@ def load_qa_chain():
 
 qa_chain = load_qa_chain()
 
+# Chat UI
+if "history" not in st.session_state:
+    st.session_state["history"] = []
+
+user_input = st.chat_input("Ask something from your notes...")
+
+if user_input:
+    with st.spinner("Thinking..."):
+        result = qa_chain.invoke({"question": user_input})
+        answer = result["answer"]
+
+        st.session_state["history"].append(("user", user_input))
+        st.session_state["history"].append(("ai", answer))
+
+# Display chat
+for role, msg in st.session_state["history"]:
+    if role == "user":
+        st.chat_message("user").markdown(msg)
+    else:
+        st.chat_message("assistant").markdown(msg)
