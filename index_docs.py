@@ -24,8 +24,8 @@ def build_vectorstore():
 
     chunks = splitter.split_documents(docs)
     print(f"✅ Split into {len(chunks)} chunks")
-    
-# Azure Embeddings (make sure your env file is correct)
+
+    # Azure Embeddings (make sure your env file is correct)
     embeddings = AzureOpenAIEmbeddings(
         azure_deployment=os.getenv("AZURE_OPENAI_EMBEDDING_DEPLOYMENT"),
         openai_api_version=os.getenv("AZURE_OPENAI_API_VERSION"),
